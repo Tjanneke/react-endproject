@@ -1,10 +1,20 @@
 import React from 'react';
-import './index.css';
+import CategorySelection from './components/CategorySelection';
+import AddItemInput from './components/AddItemInput';
+import ItemList from './components/ItemList';
 
 function App() {
   return (
     <>
-    <div>
+    <div className='min-h-screen bg-slate-300 text-stone-600 p-4'>
+      <div className='max-w-2xl mx-auto space-y-6'>
+        <h1 className='text-3xl font-bold text-center text-lime-500'>Packing List Helper</h1>
+        <CategorySelection />
+        <AddItemInput />
+        <ItemList />
+       </div>
+    </div>
+    {/* <div>
       <p>NEED TO MAKE CONTEXT FILE AND DATA?</p>
       <div>
         <h1>Packing List Helper</h1>
@@ -17,7 +27,7 @@ function App() {
         <div>filter</div>
         <p>List with packed items</p></div> 
       </div>
-    </div>
+    </div> */}
     </>
   );
 }
