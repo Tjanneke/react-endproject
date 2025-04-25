@@ -5,3 +5,4 @@ export const categories = [
   {label: 'Food', color: 'bg-orange-300'},
   {label: 'Toiletry', color: 'bg-cyan-300'}
 ]
+

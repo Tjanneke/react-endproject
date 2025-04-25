@@ -1,0 +1,44 @@
+import { createContext, useContext, useReducer } from "react";
+
+
+const ItemsContext = createContext();
+
+const initialItems = [];
+
+function itemsReducer(items, action){
+  switch(action.type){
+    case 'ADDITEM':
+      return [
+        ...items,
+        {
+          id: crypto.randomUUID(),
+          name: action.name,
+          category: action.category,
+          packed: false,
+        },
+      ];
+      case 'TOGGLEITEM':
+        return items.map(item => item.id === action.id ? { ...item, packed: !item.packed } : item );
+      
+      case 'REMOVEITEM': 
+        return items.filter(item => item.id !== action.id);
+
+      case 'CLEARITEM':
+        return [];
+      default:
+        throw new Error('Unknown action: ' + action.type);
+  }
+}
+
+export function ItemsProvider({ children }) {
+  const [items, dispatch] = useReducer(itemsReducer, initialItems);
+  return ( 
+    <ItemsContext.Provider value={{ items, dispatch }}>
+      {children}
+    </ItemsContext.Provider>
+  )
+}
+
+export function useItems() {
+  return useContext(ItemsContext);
+}
