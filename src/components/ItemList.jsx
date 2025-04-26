@@ -24,8 +24,8 @@ export default function ItemList({ packed }){
 
 
   return ( 
-    <div className={`space-y-2 ${isListEmpty ? 'opacity-50 pointer-events-none' : ''}`}>
-        <h2>{packed ? 'Packed Items' : 'Items to Pack'}</h2>
+    <div className={`bg-fuchsia-50 p-6 rounded-md shadow-lg min-h-[300px]space-y-2 ${isListEmpty ? 'opacity-50 pointer-events-none' : ''}`}>
+        <h2 className='text-xl font-bold text-lime-500 mb-4'>{packed ? 'Packed Items' : 'Items to Pack'}</h2>
                <ItemsFilter selectedFilters={activeFilters} onSelectFilter={toggleFilter} onClearFilters={clearFilters} packed={packed}/>
 
 
