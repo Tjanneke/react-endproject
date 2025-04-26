@@ -1,9 +1,8 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 
 
 const ItemsContext = createContext();
 
-const initialItems = [];
 
 function itemsReducer(items, action){
   switch(action.type){
@@ -23,15 +22,25 @@ function itemsReducer(items, action){
       case 'REMOVEITEM': 
         return items.filter(item => item.id !== action.id);
 
+      case 'CLEARBYLIST':
+        return items.filter(item => item.packed !== action.packed);
+
       case 'CLEARITEM':
         return [];
+        
       default:
         throw new Error('Unknown action: ' + action.type);
   }
 }
 
 export function ItemsProvider({ children }) {
-  const [items, dispatch] = useReducer(itemsReducer, initialItems);
+  const savedItems = JSON.parse(localStorage.getItem('items')) || [];
+  const [items, dispatch] = useReducer(itemsReducer, savedItems);
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
+
   return ( 
     <ItemsContext.Provider value={{ items, dispatch }}>
       {children}
